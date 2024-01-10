@@ -18,6 +18,6 @@ class ProductArchivingValidator implements ProductArchivingValidatorInterface
      */
     public function validateProductConcreteForArchiving(ProductConcreteTransfer $productConcreteTransfer): bool
     {
-        // TODO: Implement validateProductConcreteForArchiving() method.
+        return false;
     }
 }
