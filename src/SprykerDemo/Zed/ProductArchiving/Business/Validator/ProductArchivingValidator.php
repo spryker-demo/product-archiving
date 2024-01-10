@@ -9,12 +9,15 @@ namespace SprykerDemo\Zed\ProductArchiving\Business\Validator;
 
 use Generated\Shared\Transfer\ProductConcreteTransfer;
 
-interface ProductArchivingValidatorInterface
+class ProductArchivingValidator implements ProductArchivingValidatorInterface
 {
     /**
      * @param \Generated\Shared\Transfer\ProductConcreteTransfer $productConcreteTransfer
      *
      * @return bool
      */
-    public function validateProductConcreteForArchiving(ProductConcreteTransfer $productConcreteTransfer): bool;
+    public function validateProductConcreteForArchiving(ProductConcreteTransfer $productConcreteTransfer): bool
+    {
+        // TODO: Implement validateProductConcreteForArchiving() method.
+    }
 }
