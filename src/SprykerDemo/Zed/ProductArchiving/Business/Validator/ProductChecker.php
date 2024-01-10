@@ -9,5 +9,4 @@ namespace SprykerDemo\Zed\ProductArchiving\Business\Validator;
 
 class ProductChecker
 {
-
 }
