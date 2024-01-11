@@ -11,6 +11,8 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 use Spryker\Zed\Product\Business\ProductFacadeInterface;
 use SprykerDemo\Zed\ProductArchiving\Business\Archiver\ProductConcreteArchiver;
 use SprykerDemo\Zed\ProductArchiving\Business\Archiver\ProductConcreteArchiverInterface;
+use SprykerDemo\Zed\ProductArchiving\Business\Validator\ProductArchivingValidator;
+use SprykerDemo\Zed\ProductArchiving\Business\Validator\ProductArchivingValidatorInterface;
 use SprykerDemo\Zed\ProductArchiving\ProductArchivingDependencyProvider;
 
 /**
@@ -26,20 +28,20 @@ class ProductArchivingBusinessFactory extends AbstractBusinessFactory
     {
         return new ProductConcreteArchiver(
             $this->getProductFacade(),
+            $this->createProductArchivingValidator(),
             $this->getEntityManager(),
-            $this->getRepository(),
             $this->getProductConcretePreArchivePlugins(),
             $this->getProductConcretePostArchivePlugins(),
         );
     }
 
-//    /**
-//     * @return \SprykerDemo\Zed\ProductArchiving\Business\Trigger\ProductEventTriggerInterface
-//     */
-//    public function createProductEventTrigger(): ProductEventTriggerInterface
-//    {
-//        return new ProductEventTrigger($this->getEventFacade());
-//    }
+    /**
+     * @return \SprykerDemo\Zed\ProductArchiving\Business\Validator\ProductArchivingValidatorInterface
+     */
+    public function createProductArchivingValidator(): ProductArchivingValidatorInterface
+    {
+        return new ProductArchivingValidator($this->getRepository());
+    }
 
     /**
      * @return array<\SprykerDemo\Zed\ProductArchiving\Dependency\Plugin\ProductConcretePreArchivePluginInterface>

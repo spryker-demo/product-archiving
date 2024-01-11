@@ -7,22 +7,24 @@
 
 namespace SprykerDemo\Zed\ProductArchiving\Business;
 
+use Generated\Shared\Transfer\ProductArchivingResponseTransfer;
 use Generated\Shared\Transfer\ProductConcreteTransfer;
 
 interface ProductArchivingFacadeInterface
 {
     /**
      * Specification:
+     * - Checks whether the product can be archived.
      * - Executes `ProductConcreteBeforeArchivePluginInterface` plugins stack.
+     * - Deactivates product concrete.
      * - Marks product as deleted using `soft_delete` behavior.
      * - Executes `ProductConcreteAfterArchivePluginInterface` plugins stack.
-     * - Triggers `Product.product_concrete.unpublish` event for corresponding product.
      *
      * @api
      *
      * @param \Generated\Shared\Transfer\ProductConcreteTransfer $productConcreteTransfer
      *
-     * @return void
+     * @return \Generated\Shared\Transfer\ProductArchivingResponseTransfer
      */
-    public function archiveProductConcrete(ProductConcreteTransfer $productConcreteTransfer): void;
+    public function archiveProductConcrete(ProductConcreteTransfer $productConcreteTransfer): ProductArchivingResponseTransfer;
 }

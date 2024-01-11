@@ -7,6 +7,7 @@
 
 namespace SprykerDemo\Zed\ProductArchiving\Business;
 
+use Generated\Shared\Transfer\ProductArchivingResponseTransfer;
 use Generated\Shared\Transfer\ProductConcreteTransfer;
 use Spryker\Zed\Product\Business\ProductFacade as SprykerProductFacade;
 
@@ -22,10 +23,10 @@ class ProductArchivingFacade extends SprykerProductFacade implements ProductArch
      *
      * @param \Generated\Shared\Transfer\ProductConcreteTransfer $productConcreteTransfer
      *
-     * @return void
+     * @return \Generated\Shared\Transfer\ProductArchivingResponseTransfer
      */
-    public function archiveProductConcrete(ProductConcreteTransfer $productConcreteTransfer): void
+    public function archiveProductConcrete(ProductConcreteTransfer $productConcreteTransfer): ProductArchivingResponseTransfer
     {
-        $this->getFactory()->createProductConcreteArchiver()->archive($productConcreteTransfer);
+        return $this->getFactory()->createProductConcreteArchiver()->archive($productConcreteTransfer);
     }
 }

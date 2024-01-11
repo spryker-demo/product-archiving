@@ -7,6 +7,7 @@
 
 namespace SprykerDemo\Zed\ProductArchiving\Business\Archiver;
 
+use Generated\Shared\Transfer\ProductArchivingResponseTransfer;
 use Generated\Shared\Transfer\ProductConcreteTransfer;
 
 interface ProductConcreteArchiverInterface
@@ -14,7 +15,7 @@ interface ProductConcreteArchiverInterface
     /**
      * @param \Generated\Shared\Transfer\ProductConcreteTransfer $productConcreteTransfer
      *
-     * @return void
+     * @return \Generated\Shared\Transfer\ProductArchivingResponseTransfer
      */
-    public function archive(ProductConcreteTransfer $productConcreteTransfer): void;
+    public function archive(ProductConcreteTransfer $productConcreteTransfer): ProductArchivingResponseTransfer;
 }

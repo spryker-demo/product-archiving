@@ -7,7 +7,10 @@
 
 namespace SprykerDemo\Zed\ProductArchiving;
 
+use Orm\Zed\Product\Persistence\Base\SpyProductQuery;
 use Orm\Zed\ProductList\Persistence\SpyProductListProductConcreteQuery;
+use Orm\Zed\Sales\Persistence\SpySalesOrderItemQuery;
+use Orm\Zed\ShoppingList\Persistence\SpyShoppingListItemQuery;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
@@ -25,6 +28,21 @@ class ProductArchivingDependencyProvider extends AbstractBundleDependencyProvide
      * @var string
      */
     public const QUERY_PRODUCT_LIST_PRODUCT_CONCRETE_QUERY = 'QUERY_PRODUCT_LIST_PRODUCT_CONCRETE_QUERY';
+
+    /**
+     * @var string
+     */
+    public const QUERY_SHOPPING_LIST_ITEM_QUERY = 'QUERY_SHOPPING_LIST_ITEM_QUERY';
+
+    /**
+     * @var string
+     */
+    public const QUERY_SALES_ORDER_ITEM_QUERY = 'QUERY_SALES_ORDER_ITEM_QUERY';
+
+    /**
+     * @var string
+     */
+    public const QUERY_PRODUCT_QUERY = 'QUERY_PRODUCT_QUERY';
 
     /**
      * @var string
@@ -60,6 +78,9 @@ class ProductArchivingDependencyProvider extends AbstractBundleDependencyProvide
     {
         $container = parent::providePersistenceLayerDependencies($container);
         $container = $this->addProductListProductConcreteQuery($container);
+        $container = $this->addShoppingListItemQuery($container);
+        $container = $this->addSalesOrderItemQuery($container);
+        $container = $this->addProductQuery($container);
 
         return $container;
     }
@@ -117,6 +138,48 @@ class ProductArchivingDependencyProvider extends AbstractBundleDependencyProvide
     {
         $container->set(static::QUERY_PRODUCT_LIST_PRODUCT_CONCRETE_QUERY, $container->factory(function () {
             return SpyProductListProductConcreteQuery::create();
+        }));
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addShoppingListItemQuery(Container $container): Container
+    {
+        $container->set(static::QUERY_SHOPPING_LIST_ITEM_QUERY, $container->factory(function () {
+            return SpyShoppingListItemQuery::create();
+        }));
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addSalesOrderItemQuery(Container $container): Container
+    {
+        $container->set(static::QUERY_SALES_ORDER_ITEM_QUERY, $container->factory(function () {
+            return SpySalesOrderItemQuery::create();
+        }));
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addProductQuery(Container $container): Container
+    {
+        $container->set(static::QUERY_PRODUCT_QUERY, $container->factory(function () {
+            return SpyProductQuery::create();
         }));
 
         return $container;

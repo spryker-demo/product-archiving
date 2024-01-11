@@ -8,21 +8,23 @@
 namespace SprykerDemo\Zed\ProductArchiving\Persistence;
 
 use Generated\Shared\Transfer\ProductConcreteTransfer;
-use Orm\Zed\Product\Persistence\Base\SpyProductQuery;
-use Spryker\Zed\Product\Persistence\ProductRepository as SprykerProductRepository;
+use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
  * @method \SprykerDemo\Zed\ProductArchiving\Persistence\ProductArchivingPersistenceFactory getFactory()
  */
-class ProductArchivingRepository extends SprykerProductRepository implements ProductArchivingRepositoryInterface
+class ProductArchivingRepository extends AbstractRepository implements ProductArchivingRepositoryInterface
 {
     /**
+     * @param \Generated\Shared\Transfer\ProductConcreteTransfer $productConcreteTransfer
+     *
      * @return bool
      */
-    public function isSoftDeleteEnabled(): bool
+    public function productExistsInProductLists(ProductConcreteTransfer $productConcreteTransfer): bool
     {
-        return method_exists(SpyProductQuery::class, 'isSoftDeleteEnabled')
-            && SpyProductQuery::isSoftDeleteEnabled();
+        return $this->getFactory()->getProductListProductConcreteQuery()
+            ->filterByFkProduct($productConcreteTransfer->getIdProductConcrete())
+            ->exists();
     }
 
     /**
@@ -30,10 +32,22 @@ class ProductArchivingRepository extends SprykerProductRepository implements Pro
      *
      * @return bool
      */
-    public function isProductExistsInProductLists(ProductConcreteTransfer $productConcreteTransfer): bool
+    public function productExistsInShoppingLists(ProductConcreteTransfer $productConcreteTransfer): bool
     {
-        return $this->getFactory()->createProductListProductConcreteQuery()
-            ->filterByFkProduct($productConcreteTransfer->getIdProductConcrete())
+        return $this->getFactory()->getShoppingListItemQuery()
+            ->filterBySku($productConcreteTransfer->getSku())
+            ->exists();
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ProductConcreteTransfer $productConcreteTransfer
+     *
+     * @return bool
+     */
+    public function productExistsInOrders(ProductConcreteTransfer $productConcreteTransfer): bool
+    {
+        return $this->getFactory()->getSalesOrderItemQuery()
+            ->filterBySku($productConcreteTransfer->getSku())
             ->exists();
     }
 }

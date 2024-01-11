@@ -12,14 +12,23 @@ use Generated\Shared\Transfer\ProductConcreteTransfer;
 interface ProductArchivingRepositoryInterface
 {
     /**
+     * @param \Generated\Shared\Transfer\ProductConcreteTransfer $productConcreteTransfer
+     *
      * @return bool
      */
-    public function isSoftDeleteEnabled(): bool;
+    public function productExistsInProductLists(ProductConcreteTransfer $productConcreteTransfer): bool;
 
     /**
      * @param \Generated\Shared\Transfer\ProductConcreteTransfer $productConcreteTransfer
      *
      * @return bool
      */
-    public function isProductExistsInProductLists(ProductConcreteTransfer $productConcreteTransfer): bool;
+    public function productExistsInShoppingLists(ProductConcreteTransfer $productConcreteTransfer): bool;
+
+    /**
+     * @param \Generated\Shared\Transfer\ProductConcreteTransfer $productConcreteTransfer
+     *
+     * @return bool
+     */
+    public function productExistsInOrders(ProductConcreteTransfer $productConcreteTransfer): bool;
 }

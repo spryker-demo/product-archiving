@@ -7,13 +7,12 @@
 
 namespace SprykerDemo\Zed\ProductArchiving\Business\Archiver;
 
-use Exception;
+use Generated\Shared\Transfer\ProductArchivingResponseTransfer;
 use Generated\Shared\Transfer\ProductConcreteTransfer;
 use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionTrait;
-use Spryker\Zed\Product\Business\Product\ProductConcreteActivatorInterface;
 use Spryker\Zed\Product\Business\ProductFacadeInterface;
+use SprykerDemo\Zed\ProductArchiving\Business\Validator\ProductArchivingValidatorInterface;
 use SprykerDemo\Zed\ProductArchiving\Persistence\ProductArchivingEntityManagerInterface;
-use SprykerDemo\Zed\ProductArchiving\Persistence\ProductArchivingRepositoryInterface;
 
 class ProductConcreteArchiver implements ProductConcreteArchiverInterface
 {
@@ -25,14 +24,14 @@ class ProductConcreteArchiver implements ProductConcreteArchiverInterface
     protected ProductFacadeInterface $productFacade;
 
     /**
-     * @var \SprykerDemo\Zed\ProductArchiving\Persistence\ProductArchivingEntityManagerInterface
+     * @var \SprykerDemo\Zed\ProductArchiving\Business\Validator\ProductArchivingValidatorInterface
      */
-    protected ProductArchivingEntityManagerInterface $productEntityManager;
+    protected ProductArchivingValidatorInterface $productArchivingValidator;
 
     /**
-     * @var \SprykerDemo\Zed\ProductArchiving\Persistence\ProductArchivingRepositoryInterface
+     * @var \SprykerDemo\Zed\ProductArchiving\Persistence\ProductArchivingEntityManagerInterface
      */
-    protected ProductArchivingRepositoryInterface $productRepository;
+    protected ProductArchivingEntityManagerInterface $entityManager;
 
     /**
      * @var array<\SprykerDemo\Zed\ProductArchiving\Dependency\Plugin\ProductConcretePreArchivePluginInterface>
@@ -46,21 +45,21 @@ class ProductConcreteArchiver implements ProductConcreteArchiverInterface
 
     /**
      * @param \Spryker\Zed\Product\Business\ProductFacadeInterface $productFacade
-     * @param \SprykerDemo\Zed\ProductArchiving\Persistence\ProductArchivingEntityManagerInterface $productEntityManager
-     * @param \SprykerDemo\Zed\ProductArchiving\Persistence\ProductArchivingRepositoryInterface $productRepository
+     * @param \SprykerDemo\Zed\ProductArchiving\Business\Validator\ProductArchivingValidatorInterface $productArchivingValidator
+     * @param \SprykerDemo\Zed\ProductArchiving\Persistence\ProductArchivingEntityManagerInterface $entityManager
      * @param array<\SprykerDemo\Zed\ProductArchiving\Dependency\Plugin\ProductConcretePreArchivePluginInterface> $productConcretePreArchivePlugins
      * @param array<\SprykerDemo\Zed\ProductArchiving\Dependency\Plugin\ProductConcretePostArchivePluginInterface> $productConcretePostArchivePlugins
      */
     public function __construct(
-        ProductConcreteActivatorInterface $productFacade,
-        ProductArchivingEntityManagerInterface $productEntityManager,
-        ProductArchivingRepositoryInterface $productRepository,
+        ProductFacadeInterface $productFacade,
+        ProductArchivingValidatorInterface $productArchivingValidator,
+        ProductArchivingEntityManagerInterface $entityManager,
         array $productConcretePreArchivePlugins,
         array $productConcretePostArchivePlugins
     ) {
         $this->productFacade = $productFacade;
-        $this->productEntityManager = $productEntityManager;
-        $this->productRepository = $productRepository;
+        $this->productArchivingValidator = $productArchivingValidator;
+        $this->entityManager = $entityManager;
         $this->productConcretePreArchivePlugins = $productConcretePreArchivePlugins;
         $this->productConcretePostArchivePlugins = $productConcretePostArchivePlugins;
     }
@@ -68,22 +67,22 @@ class ProductConcreteArchiver implements ProductConcreteArchiverInterface
     /**
      * @param \Generated\Shared\Transfer\ProductConcreteTransfer $productConcreteTransfer
      *
-     * @throws \Exception
-     *
-     * @return void
+     * @return \Generated\Shared\Transfer\ProductArchivingResponseTransfer
      */
-    public function archive(ProductConcreteTransfer $productConcreteTransfer): void
+    public function archive(ProductConcreteTransfer $productConcreteTransfer): ProductArchivingResponseTransfer
     {
-        if (!$this->productRepository->isSoftDeleteEnabled()) {
-            throw new Exception('SoftDelete is not enabled. Archiving is not possible.');
+        $productArchivingResponseTransfer = $this->productArchivingValidator
+            ->validateProductConcreteForArchiving($productConcreteTransfer);
+
+        if (!$productArchivingResponseTransfer->getIsSuccess()) {
+            return $productArchivingResponseTransfer;
         }
-
-        //todo check if product presenting in orders product/shopping list. Prevent deletion if it exists there.
-
 
         $this->getTransactionHandler()->handleTransaction(function () use ($productConcreteTransfer): void {
             $this->executeArchiveTransaction($productConcreteTransfer);
         });
+
+        return $productArchivingResponseTransfer;
     }
 
     /**
@@ -96,7 +95,7 @@ class ProductConcreteArchiver implements ProductConcreteArchiverInterface
         $this->executeProductConcretePreArchivePlugins($productConcreteTransfer);
 
         $this->productFacade->deactivateProductConcrete($productConcreteTransfer->getIdProductConcrete());
-        $this->productEntityManager->archiveProductConcrete($productConcreteTransfer);
+        $this->entityManager->archiveProductConcrete($productConcreteTransfer);
 
         $this->executeProductConcretePostArchivePlugins($productConcreteTransfer);
     }

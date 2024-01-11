@@ -7,6 +7,7 @@
 
 namespace SprykerDemo\Zed\ProductArchiving\Business\Validator;
 
+use Generated\Shared\Transfer\ProductArchivingResponseTransfer;
 use Generated\Shared\Transfer\ProductConcreteTransfer;
 
 interface ProductArchivingValidatorInterface
@@ -14,7 +15,7 @@ interface ProductArchivingValidatorInterface
     /**
      * @param \Generated\Shared\Transfer\ProductConcreteTransfer $productConcreteTransfer
      *
-     * @return bool
+     * @return \Generated\Shared\Transfer\ProductArchivingResponseTransfer
      */
-    public function validateProductConcreteForArchiving(ProductConcreteTransfer $productConcreteTransfer): bool;
+    public function validateProductConcreteForArchiving(ProductConcreteTransfer $productConcreteTransfer): ProductArchivingResponseTransfer;
 }

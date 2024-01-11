@@ -1,0 +1,5 @@
+{
+    "include": {
+        "rentpost/propel2-soft-delete-behavior": "External package for propel soft deletion behavior."
+    }
+}

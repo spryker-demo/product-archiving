@@ -8,9 +8,12 @@
 namespace SprykerDemo\Zed\ProductArchiving\Persistence;
 
 use Generated\Shared\Transfer\ProductConcreteTransfer;
-use Spryker\Zed\Product\Persistence\ProductEntityManager as SprykerProductEntityManager;
+use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
-class ProductArchivingEntityManager extends SprykerProductEntityManager implements ProductArchivingEntityManagerInterface
+/**
+ * @method \SprykerDemo\Zed\ProductArchiving\Persistence\ProductArchivingPersistenceFactory getFactory()
+ */
+class ProductArchivingEntityManager extends AbstractEntityManager implements ProductArchivingEntityManagerInterface
 {
     /**
      * @param \Generated\Shared\Transfer\ProductConcreteTransfer $productConcreteTransfer
@@ -19,7 +22,7 @@ class ProductArchivingEntityManager extends SprykerProductEntityManager implemen
      */
     public function archiveProductConcrete(ProductConcreteTransfer $productConcreteTransfer): void
     {
-        $productConcreteEntity = $this->getFactory()->createProductQuery()
+        $productConcreteEntity = $this->getFactory()->getProductQuery()
             ->filterByIdProduct($productConcreteTransfer->getIdProductConcrete())
             ->findOne();
 
