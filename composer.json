@@ -7,7 +7,8 @@
         "php": ">=8.0",
         "rentpost/propel2-soft-delete-behavior": "^1.0.5",
         "spryker/kernel": "^3.73.0",
-        "spryker/product": "^6.37.0"
+        "spryker/product": "^6.37.0",
+        "spryker/product-list": "*"
     },
     "require-dev": {
         "spryker/code-sniffer": "*"
