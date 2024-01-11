@@ -52,7 +52,7 @@ class ProductArchivingBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return <\SprykerDemo\Zed\ProductArchiving\Dependency\Plugin\ProductConcretePostArchivePluginInterface>
+     * @return array<\SprykerDemo\Zed\ProductArchiving\Dependency\Plugin\ProductConcretePostArchivePluginInterface>
      */
     public function getProductConcretePostArchivePlugins(): array
     {
