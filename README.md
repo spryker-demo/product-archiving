@@ -1,5 +1,5 @@
-# Product Module
-[![Latest Stable Version](https://poser.pugx.org/spryker-demo/product/v/stable.svg)](https://packagist.org/packages/spryker-demo/product-archiving)
+# Product Archiving Module
+[![Latest Stable Version](https://poser.pugx.org/spryker-demo/product-archiving/v/stable.svg)](https://packagist.org/packages/spryker-demo/product-archiving)
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.4-8892BF.svg)](https://php.net/)
 
 Provides functionality for archiving products.
