@@ -72,7 +72,7 @@ class ProductConcreteArchiver implements ProductConcreteArchiverInterface
     public function archive(ProductConcreteTransfer $productConcreteTransfer): ProductArchivingResponseTransfer
     {
         $productArchivingResponseTransfer = $this->productArchivingValidator
-            ->validateProductConcreteForArchiving($productConcreteTransfer);
+            ->validateProductForArchiving($productConcreteTransfer);
 
         if (!$productArchivingResponseTransfer->getIsSuccess()) {
             return $productArchivingResponseTransfer;
@@ -108,7 +108,7 @@ class ProductConcreteArchiver implements ProductConcreteArchiverInterface
     protected function executeProductConcretePreArchivePlugins(ProductConcreteTransfer $productConcreteTransfer): void
     {
         foreach ($this->productConcretePreArchivePlugins as $productConcretePreArchivePlugin) {
-            $productConcretePreArchivePlugin->preExecute($productConcreteTransfer);
+            $productConcretePreArchivePlugin->preArchive($productConcreteTransfer);
         }
     }
 
@@ -120,7 +120,7 @@ class ProductConcreteArchiver implements ProductConcreteArchiverInterface
     protected function executeProductConcretePostArchivePlugins(ProductConcreteTransfer $productConcreteTransfer): void
     {
         foreach ($this->productConcretePostArchivePlugins as $productConcretePostArchivePlugin) {
-            $productConcretePostArchivePlugin->postExecute($productConcreteTransfer);
+            $productConcretePostArchivePlugin->postArchive($productConcreteTransfer);
         }
     }
 }

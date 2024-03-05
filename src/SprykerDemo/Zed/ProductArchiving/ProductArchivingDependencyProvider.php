@@ -14,9 +14,6 @@ use Orm\Zed\ShoppingList\Persistence\SpyShoppingListItemQuery;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
-/**
- * @method \SprykerDemo\Zed\ProductArchiving\ProductArchivingConfig getConfig()
- */
 class ProductArchivingDependencyProvider extends AbstractBundleDependencyProvider
 {
     /**

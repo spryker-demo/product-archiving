@@ -13,7 +13,7 @@ interface ProductConcretePreArchivePluginInterface
 {
     /**
      * Specification:
-     * - Executes before product concrete archiving process.
+     * - Is executed before product concrete is archived.
      * - Can be used to perform additional actions.
      *
      * @api
@@ -22,5 +22,5 @@ interface ProductConcretePreArchivePluginInterface
      *
      * @return void
      */
-    public function preExecute(ProductConcreteTransfer $productConcreteTransfer): void;
+    public function preArchive(ProductConcreteTransfer $productConcreteTransfer): void;
 }

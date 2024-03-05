@@ -17,5 +17,5 @@ interface ProductArchivingValidatorInterface
      *
      * @return \Generated\Shared\Transfer\ProductArchivingResponseTransfer
      */
-    public function validateProductConcreteForArchiving(ProductConcreteTransfer $productConcreteTransfer): ProductArchivingResponseTransfer;
+    public function validateProductForArchiving(ProductConcreteTransfer $productConcreteTransfer): ProductArchivingResponseTransfer;
 }

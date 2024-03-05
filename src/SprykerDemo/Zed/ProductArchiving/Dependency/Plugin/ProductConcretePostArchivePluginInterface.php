@@ -13,7 +13,7 @@ interface ProductConcretePostArchivePluginInterface
 {
     /**
      * Specification:
-     * - Executes after product concrete archiving process.
+     * - Is executed after product concrete is archived.
      * - Can be used to perform additional actions.
      *
      * @api
@@ -22,5 +22,5 @@ interface ProductConcretePostArchivePluginInterface
      *
      * @return void
      */
-    public function postExecute(ProductConcreteTransfer $productConcreteTransfer): void;
+    public function postArchive(ProductConcreteTransfer $productConcreteTransfer): void;
 }

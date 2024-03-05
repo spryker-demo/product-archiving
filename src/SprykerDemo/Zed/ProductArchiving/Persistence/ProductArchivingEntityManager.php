@@ -22,7 +22,8 @@ class ProductArchivingEntityManager extends AbstractEntityManager implements Pro
      */
     public function archiveProductConcrete(ProductConcreteTransfer $productConcreteTransfer): void
     {
-        $productConcreteEntity = $this->getFactory()->getProductQuery()
+        $productConcreteEntity = $this->getFactory()
+            ->getProductQuery()
             ->filterByIdProduct($productConcreteTransfer->getIdProductConcrete())
             ->findOne();
 

@@ -3,10 +3,7 @@
 
     <transfer name="ProductArchivingResponse">
         <property name="isSuccess" type="bool"/>
-        <property name="errors" type="ProductArchivingError[]" singular="error"/>
+        <property name="errors" type="string[]" singular="error"/>
     </transfer>
 
-    <transfer name="ProductArchivingError">
-        <property name="message" type="string"/>
-    </transfer>
 </transfers>
