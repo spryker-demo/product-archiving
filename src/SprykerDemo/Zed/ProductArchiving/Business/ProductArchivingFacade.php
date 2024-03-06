@@ -9,12 +9,12 @@ namespace SprykerDemo\Zed\ProductArchiving\Business;
 
 use Generated\Shared\Transfer\ProductArchivingResponseTransfer;
 use Generated\Shared\Transfer\ProductConcreteTransfer;
-use Spryker\Zed\Product\Business\ProductFacade as SprykerProductFacade;
+use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
  * @method \SprykerDemo\Zed\ProductArchiving\Business\ProductArchivingBusinessFactory getFactory()
  */
-class ProductArchivingFacade extends SprykerProductFacade implements ProductArchivingFacadeInterface
+class ProductArchivingFacade extends AbstractFacade implements ProductArchivingFacadeInterface
 {
     /**
      * {@inheritDoc}
