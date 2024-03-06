@@ -16,11 +16,6 @@ class ProductArchivingValidator implements ProductArchivingValidatorInterface
     /**
      * @var string
      */
-    protected const ERROR_SOFT_DELETE_IS_NOT_ENABLED = 'SoftDelete is not enabled. Archiving is not possible.';
-
-    /**
-     * @var string
-     */
     protected const ERROR_PRODUCT_EXISTS_IN_ORDERS = 'Product exists in orders.';
 
     /**
