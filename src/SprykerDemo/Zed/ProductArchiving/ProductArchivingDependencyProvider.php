@@ -58,7 +58,6 @@ class ProductArchivingDependencyProvider extends AbstractBundleDependencyProvide
      */
     public function provideBusinessLayerDependencies(Container $container): Container
     {
-        $container = parent::provideBusinessLayerDependencies($container);
         $container = $this->addProductConcretePreArchivePlugins($container);
         $container = $this->addProductConcretePostArchivePlugins($container);
         $container = $this->addProductFacade($container);
@@ -73,7 +72,6 @@ class ProductArchivingDependencyProvider extends AbstractBundleDependencyProvide
      */
     public function providePersistenceLayerDependencies(Container $container): Container
     {
-        $container = parent::providePersistenceLayerDependencies($container);
         $container = $this->addProductListProductConcreteQuery($container);
         $container = $this->addShoppingListItemQuery($container);
         $container = $this->addSalesOrderItemQuery($container);
