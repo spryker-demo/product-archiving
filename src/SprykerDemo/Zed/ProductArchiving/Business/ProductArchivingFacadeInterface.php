@@ -15,10 +15,8 @@ interface ProductArchivingFacadeInterface
     /**
      * Specification:
      * - Checks whether the product can be archived.
-     * - Executes `ProductConcretePreArchivePluginInterface` plugins stack.
      * - Deactivates product concrete.
      * - Marks product as deleted using `soft_delete` behavior.
-     * - Executes `ProductConcretePostArchivePluginInterface` plugins stack.
      *
      * @api
      *

@@ -30,8 +30,6 @@ class ProductArchivingBusinessFactory extends AbstractBusinessFactory
             $this->getProductFacade(),
             $this->createProductArchivingValidator(),
             $this->getEntityManager(),
-            $this->getProductConcretePreArchivePlugins(),
-            $this->getProductConcretePostArchivePlugins(),
         );
     }
 
@@ -41,22 +39,6 @@ class ProductArchivingBusinessFactory extends AbstractBusinessFactory
     public function createProductArchivingValidator(): ProductArchivingValidatorInterface
     {
         return new ProductArchivingValidator($this->getRepository());
-    }
-
-    /**
-     * @return array<\SprykerDemo\Zed\ProductArchiving\Dependency\Plugin\ProductConcretePreArchivePluginInterface>
-     */
-    public function getProductConcretePreArchivePlugins(): array
-    {
-        return $this->getProvidedDependency(ProductArchivingDependencyProvider::PLUGINS_PRODUCT_CONCRETE_PRE_ARCHIVE);
-    }
-
-    /**
-     * @return array<\SprykerDemo\Zed\ProductArchiving\Dependency\Plugin\ProductConcretePostArchivePluginInterface>
-     */
-    public function getProductConcretePostArchivePlugins(): array
-    {
-        return $this->getProvidedDependency(ProductArchivingDependencyProvider::PLUGINS_PRODUCT_CONCRETE_POST_ARCHIVE);
     }
 
     /**

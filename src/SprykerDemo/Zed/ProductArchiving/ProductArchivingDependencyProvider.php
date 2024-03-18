@@ -42,24 +42,12 @@ class ProductArchivingDependencyProvider extends AbstractBundleDependencyProvide
     public const QUERY_PRODUCT_QUERY = 'QUERY_PRODUCT_QUERY';
 
     /**
-     * @var string
-     */
-    public const PLUGINS_PRODUCT_CONCRETE_PRE_ARCHIVE = 'PLUGINS_PRODUCT_CONCRETE_PRE_ARCHIVE';
-
-    /**
-     * @var string
-     */
-    public const PLUGINS_PRODUCT_CONCRETE_POST_ARCHIVE = 'PLUGINS_PRODUCT_CONCRETE_POST_ARCHIVE';
-
-    /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
      * @return \Spryker\Zed\Kernel\Container
      */
     public function provideBusinessLayerDependencies(Container $container): Container
     {
-        $container = $this->addProductConcretePreArchivePlugins($container);
-        $container = $this->addProductConcretePostArchivePlugins($container);
         $container = $this->addProductFacade($container);
 
         return $container;
@@ -78,50 +66,6 @@ class ProductArchivingDependencyProvider extends AbstractBundleDependencyProvide
         $container = $this->addProductQuery($container);
 
         return $container;
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    protected function addProductConcretePreArchivePlugins(Container $container): Container
-    {
-        $container->set(static::PLUGINS_PRODUCT_CONCRETE_PRE_ARCHIVE, function () {
-            return $this->getProductConcretePreArchivePlugins();
-        });
-
-        return $container;
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    protected function addProductConcretePostArchivePlugins(Container $container): Container
-    {
-        $container->set(static::PLUGINS_PRODUCT_CONCRETE_POST_ARCHIVE, function () {
-            return $this->getProductConcretePostArchivePlugins();
-        });
-
-        return $container;
-    }
-
-    /**
-     * @return array<\SprykerDemo\Zed\ProductArchiving\Dependency\Plugin\ProductConcretePreArchivePluginInterface>
-     */
-    protected function getProductConcretePreArchivePlugins(): array
-    {
-        return [];
-    }
-
-    /**
-     * @return array<\SprykerDemo\Zed\ProductArchiving\Dependency\Plugin\ProductConcretePostArchivePluginInterface>
-     */
-    protected function getProductConcretePostArchivePlugins(): array
-    {
-        return [];
     }
 
     /**

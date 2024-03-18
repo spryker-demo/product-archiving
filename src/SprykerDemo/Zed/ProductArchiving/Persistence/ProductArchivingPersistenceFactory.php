@@ -15,7 +15,6 @@ use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 use SprykerDemo\Zed\ProductArchiving\ProductArchivingDependencyProvider;
 
 /**
- * @method \SprykerDemo\Zed\ProductArchiving\ProductArchivingConfig getConfig()
  * @method \SprykerDemo\Zed\ProductArchiving\Persistence\ProductArchivingRepositoryInterface getRepository()
  * @method \SprykerDemo\Zed\ProductArchiving\Persistence\ProductArchivingEntityManagerInterface getEntityManager()
  */
