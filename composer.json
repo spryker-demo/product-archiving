@@ -10,7 +10,7 @@
         "spryker/product": "^6.37.0",
         "spryker/product-list": "^1.7.1",
         "spryker/sales": "^11.40.5",
-        "spryker-demo/shopping-list": "^1.0.0"
+        "spryker/shopping-list": "^4.16.0"
     },
     "require-dev": {
         "spryker/code-sniffer": "*"
