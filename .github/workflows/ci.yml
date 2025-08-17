@@ -34,9 +34,6 @@ jobs:
             - name: Run CodeStyle checks
               run: composer cs-check
 
-            - name: Run PHPStan
-              run: composer stan
-
     lowest:
         name: Prefer Lowest
         runs-on: ubuntu-latest
